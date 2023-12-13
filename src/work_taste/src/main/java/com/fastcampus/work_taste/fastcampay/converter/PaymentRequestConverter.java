@@ -23,4 +23,11 @@ public class PaymentRequestConverter {
                 .isSuccess(paymentRequest.getIsSuccess())
                 .build();
     }
+
+    public static ResponseDto.getPaymentResponseDto toGetPaymentResponseDto(PaymentRequest paymentRequest) {
+        return ResponseDto.getPaymentResponseDto.builder()
+                .shopName(paymentRequest.getShopName())
+                .paymentAmount(paymentRequest.getPaymentAmount())
+                .build();
+    }
 }

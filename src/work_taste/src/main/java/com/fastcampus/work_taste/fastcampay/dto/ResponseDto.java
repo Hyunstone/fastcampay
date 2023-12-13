@@ -12,4 +12,11 @@ public class ResponseDto {
         private Long paymentAmount;
         private Boolean isSuccess;
     }
+
+    @Getter
+    @Builder
+    public static class getPaymentResponseDto {
+        private String shopName;
+        private Long paymentAmount;
+    }
 }

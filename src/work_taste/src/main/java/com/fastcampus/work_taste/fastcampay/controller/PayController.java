@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/api/pay")
 @RestController
@@ -21,6 +23,9 @@ public class PayController {
 
     // 사용자 결제 요청 정보 확인
     @GetMapping("/request")
-    public ResponseEntity<ResponseDto.>
+    public ResponseEntity<List<ResponseDto.getPaymentResponseDto>> getPaymentRequest(@PathVariable Long userId) {
+        return ResponseEntity.ok().body(payService.getPaymentRequest(userId));
+    }
+
     // 사용장 결제 처리
 }

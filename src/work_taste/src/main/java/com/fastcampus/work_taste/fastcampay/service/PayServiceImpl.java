@@ -7,6 +7,9 @@ import com.fastcampus.work_taste.fastcampay.repository.PayRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class PayServiceImpl implements PayService {
@@ -16,5 +19,12 @@ public class PayServiceImpl implements PayService {
     @Override
     public ResponseDto.createPaymentResponseDto createPaymentRequest(RequestDto.createPaymentRequestDto request) {
         return PaymentRequestConverter.toPaymentResponseDto(payRequestRepository.save(PaymentRequestConverter.toPaymentRequest(request)));
+    }
+
+    @Override
+    public List<ResponseDto.getPaymentResponseDto> getPaymentRequest(Long userId) {
+        return payRequestRepository.findAllByUserId(userId).stream()
+                .map(PaymentRequestConverter::toGetPaymentResponseDto)
+                .collect(Collectors.toList());
     }
 }
