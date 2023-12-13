@@ -17,4 +17,12 @@ public class PaymentRequest {
     private String shopName;
     private Long paymentAmount;
     private Boolean isSuccess;
+
+    public boolean process(Long memberPayableAmount) {
+        if (paymentAmount > memberPayableAmount) {
+            return false;
+        }
+        isSuccess = true;
+        return true;
+    }
 }

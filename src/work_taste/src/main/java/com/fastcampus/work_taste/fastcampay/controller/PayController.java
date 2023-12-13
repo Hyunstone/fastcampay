@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/pay")
 @RestController
 public class PayController {
-    private PayService payService;
+    private final PayService payService;
 
     // 가맹점 결제 요청
     @PostMapping("/request")
@@ -28,4 +28,9 @@ public class PayController {
     }
 
     // 사용장 결제 처리
+    @PostMapping("/process")
+    public ResponseEntity<Object> processPay(@RequestBody RequestDto.processPayDto request) {
+        payService.processPay(request);
+        return ResponseEntity.ok().build();
+    }
 }

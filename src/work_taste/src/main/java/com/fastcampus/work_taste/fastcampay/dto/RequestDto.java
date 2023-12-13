@@ -8,4 +8,10 @@ public class RequestDto {
         private String shopName;
         private Long memberId;
     }
+
+    @Getter
+    public static class processPayDto {
+        private Long paymentRequestId;
+        private Long memberId;
+    }
 }

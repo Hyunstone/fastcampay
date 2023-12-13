@@ -9,4 +9,6 @@ public interface PayService {
     ResponseDto.CreatePaymentResponseDto createPaymentRequest(RequestDto.CreatePaymentRequestDto request);
 
     List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long memberId);
+
+    void processPay(RequestDto.processPayDto request);
 }

@@ -15,4 +15,8 @@ public class Member {
     private Long id;
     private String name;
     private Long payableAmount;
+
+    public void processPay(long payAmount) {
+        this.payableAmount -= payAmount;
+    }
 }
