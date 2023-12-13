@@ -29,7 +29,7 @@ public class PayController {
 
     // 사용장 결제 처리
     @PostMapping("/process")
-    public ResponseEntity<Object> processPay(@RequestBody RequestDto.processPayDto request) {
+    public ResponseEntity<Object> processPay(@RequestBody RequestDto.ProcessPayDto request) {
         payService.processPay(request);
         return ResponseEntity.ok().build();
     }

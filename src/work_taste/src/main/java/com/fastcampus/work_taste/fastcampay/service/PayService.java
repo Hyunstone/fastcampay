@@ -10,5 +10,5 @@ public interface PayService {
 
     List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long memberId);
 
-    void processPay(RequestDto.processPayDto request);
+    void processPay(RequestDto.ProcessPayDto request);
 }

@@ -10,7 +10,7 @@ public class RequestDto {
     }
 
     @Getter
-    public static class processPayDto {
+    public static class ProcessPayDto {
         private Long paymentRequestId;
         private Long memberId;
     }

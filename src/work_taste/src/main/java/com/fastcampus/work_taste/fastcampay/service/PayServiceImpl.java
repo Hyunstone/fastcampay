@@ -40,7 +40,7 @@ public class PayServiceImpl implements PayService {
 
     @Transactional
     @Override
-    public void processPay(RequestDto.processPayDto request) {
+    public void processPay(RequestDto.ProcessPayDto request) {
         PaymentRequest paymentRequest = payRequestRepository.findByIdAndIsSuccess(request.getPaymentRequestId(), false)
                 .orElseThrow(() -> new IllegalArgumentException("요청된 결제를 찾을 수 없습니다"));
         Member member = memberRepository.findById(request.getMemberId())
