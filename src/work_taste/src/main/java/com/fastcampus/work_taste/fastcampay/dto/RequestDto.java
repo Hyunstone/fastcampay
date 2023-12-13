@@ -4,7 +4,7 @@ import lombok.Getter;
 
 public class RequestDto {
     @Getter
-    public static class CreatePaymentRequestDto {
+    public static class CreatePaymentDto {
         private String shopName;
         private Long memberId;
     }
@@ -14,4 +14,10 @@ public class RequestDto {
         private Long paymentRequestId;
         private Long memberId;
     }
+
+    @Getter
+    public static class GetPaymentDto {
+        private Long memberId;
+    }
+
 }

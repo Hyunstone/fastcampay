@@ -6,7 +6,7 @@ import com.fastcampus.work_taste.fastcampay.dto.ResponseDto;
 
 public class PaymentRequestConverter {
     // 결제 금액은 10000원으로 고정
-    public static PaymentRequest toPaymentRequest(RequestDto.CreatePaymentRequestDto dto) {
+    public static PaymentRequest toPaymentRequest(RequestDto.CreatePaymentDto dto) {
         return PaymentRequest.builder()
                 .shopName(dto.getShopName())
                 .memberId(dto.getMemberId())

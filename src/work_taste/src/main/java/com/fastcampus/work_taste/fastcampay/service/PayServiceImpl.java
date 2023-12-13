@@ -23,13 +23,15 @@ public class PayServiceImpl implements PayService {
 
     @Transactional
     @Override
-    public ResponseDto.CreatePaymentResponseDto createPaymentRequest(RequestDto.CreatePaymentRequestDto request) {
+    public ResponseDto.CreatePaymentResponseDto createPaymentRequest(RequestDto.CreatePaymentDto request) {
+        memberRepository.findById(request.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다"));
         return PaymentRequestConverter.toPaymentResponseDto(payRequestRepository.save(PaymentRequestConverter.toPaymentRequest(request)));
     }
 
     @Override
-    public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long memberId) {
-        return payRequestRepository.findAllByMemberId(memberId).stream()
+    public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(RequestDto.GetPaymentDto request) {
+        return payRequestRepository.findAllByMemberId(request.getMemberId()).stream()
                 .map(PaymentRequestConverter::toGetPaymentResponseDto)
                 .toList();
     }
