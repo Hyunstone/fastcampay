@@ -8,7 +8,7 @@ import java.util.List;
 public interface PayService {
     ResponseDto.CreatePaymentResponseDto createPaymentRequest(RequestDto.CreatePaymentDto request);
 
-    List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(RequestDto.GetPaymentDto memberId);
+    List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long memberId);
 
     void processPay(RequestDto.processPayDto request);
 }

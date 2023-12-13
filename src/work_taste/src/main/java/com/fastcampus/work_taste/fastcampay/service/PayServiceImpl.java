@@ -30,8 +30,10 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(RequestDto.GetPaymentDto request) {
-        return payRequestRepository.findAllByMemberId(request.getMemberId()).stream()
+    public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long memberId) {
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다"));
+        return payRequestRepository.findAllByMemberId(memberId).stream()
                 .map(PaymentRequestConverter::toGetPaymentResponseDto)
                 .toList();
     }
