@@ -1,5 +1,7 @@
 package com.fastcampus.work_taste.fastcampay.service;
 
+import com.fastcampus.work_taste.fastcampay.config.BaseException;
+import com.fastcampus.work_taste.fastcampay.config.BaseResponseStatus;
 import com.fastcampus.work_taste.fastcampay.converter.PaymentRequestConverter;
 import com.fastcampus.work_taste.fastcampay.domain.Member;
 import com.fastcampus.work_taste.fastcampay.domain.PaymentRequest;
@@ -25,15 +27,19 @@ public class PayServiceImpl implements PayService {
     @Override
     public ResponseDto.CreatePaymentResponseDto createPaymentRequest(RequestDto.CreatePaymentDto request) {
         memberRepository.findById(request.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다"));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_EXIST_USER));
         return PaymentRequestConverter.toPaymentResponseDto(payRequestRepository.save(PaymentRequestConverter.toPaymentRequest(request)));
     }
 
     @Override
     public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long memberId) {
         memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다"));
-        return payRequestRepository.findAllByMemberId(memberId).stream()
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_EXIST_USER));
+        List<PaymentRequest> responseDtos = payRequestRepository.findAllByMemberId(memberId);
+        if (responseDtos.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.NOT_EXIST_PAY_REQUEST);
+        }
+        return responseDtos.stream()
                 .map(PaymentRequestConverter::toGetPaymentResponseDto)
                 .toList();
     }
@@ -41,12 +47,15 @@ public class PayServiceImpl implements PayService {
     @Transactional
     @Override
     public void processPay(RequestDto.ProcessPayDto request) {
-        PaymentRequest paymentRequest = payRequestRepository.findByIdAndIsSuccess(request.getPaymentRequestId(), false)
-                .orElseThrow(() -> new IllegalArgumentException("요청된 결제를 찾을 수 없습니다"));
+        PaymentRequest paymentRequest = payRequestRepository.findById(request.getPaymentRequestId())
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_EXIST_PAY_REQUEST));
+        if (paymentRequest.getIsSuccess()) {
+            throw new BaseException(BaseResponseStatus.IS_ALREADY_PROCESS);
+        }
         Member member = memberRepository.findById(request.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다"));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_EXIST_USER));
         if (!paymentRequest.process(member.getPayableAmount())) {
-            throw new IllegalStateException("결제 잔액이 부족합니다");
+            throw new BaseException(BaseResponseStatus.PAYMENT_INSUFFICIENT);
         }
         member.processPay(10000L);
     }
