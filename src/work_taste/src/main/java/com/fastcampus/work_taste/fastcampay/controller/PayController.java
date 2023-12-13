@@ -17,13 +17,13 @@ public class PayController {
 
     // 가맹점 결제 요청
     @PostMapping("/request")
-    public ResponseEntity<ResponseDto.createPaymentResponseDto> createRequestPay(@RequestBody RequestDto.createPaymentRequestDto request) {
+    public ResponseEntity<ResponseDto.CreatePaymentResponseDto> createRequestPay(@RequestBody RequestDto.CreatePaymentRequestDto request) {
         return ResponseEntity.ok().body(payService.createPaymentRequest(request));
     }
 
     // 사용자 결제 요청 정보 확인
     @GetMapping("/request")
-    public ResponseEntity<List<ResponseDto.getPaymentResponseDto>> getPaymentRequest(@PathVariable Long userId) {
+    public ResponseEntity<List<ResponseDto.GetPaymentResponseDto>> getPaymentRequest(@PathVariable Long userId) {
         return ResponseEntity.ok().body(payService.getPaymentRequest(userId));
     }
 

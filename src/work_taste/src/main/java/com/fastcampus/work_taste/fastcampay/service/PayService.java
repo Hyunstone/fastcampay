@@ -6,7 +6,7 @@ import com.fastcampus.work_taste.fastcampay.dto.ResponseDto;
 import java.util.List;
 
 public interface PayService {
-    ResponseDto.createPaymentResponseDto createPaymentRequest(RequestDto.createPaymentRequestDto request);
+    ResponseDto.CreatePaymentResponseDto createPaymentRequest(RequestDto.CreatePaymentRequestDto request);
 
-    List<ResponseDto.getPaymentResponseDto> getPaymentRequest(Long userId);
+    List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long userId);
 }

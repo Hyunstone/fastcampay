@@ -17,12 +17,12 @@ public class PayServiceImpl implements PayService {
     private final PayRequestRepository payRequestRepository;
 
     @Override
-    public ResponseDto.createPaymentResponseDto createPaymentRequest(RequestDto.createPaymentRequestDto request) {
+    public ResponseDto.CreatePaymentResponseDto createPaymentRequest(RequestDto.CreatePaymentRequestDto request) {
         return PaymentRequestConverter.toPaymentResponseDto(payRequestRepository.save(PaymentRequestConverter.toPaymentRequest(request)));
     }
 
     @Override
-    public List<ResponseDto.getPaymentResponseDto> getPaymentRequest(Long userId) {
+    public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long userId) {
         return payRequestRepository.findAllByUserId(userId).stream()
                 .map(PaymentRequestConverter::toGetPaymentResponseDto)
                 .collect(Collectors.toList());
