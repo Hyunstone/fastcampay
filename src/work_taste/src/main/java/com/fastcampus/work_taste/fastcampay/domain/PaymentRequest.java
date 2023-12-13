@@ -14,6 +14,7 @@ public class PaymentRequest {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_request_id")
     private Long id;
+    private Long userId;
     private String shopName;
     private Long paymentAmount;
     private Boolean isSuccess;

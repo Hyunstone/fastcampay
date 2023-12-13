@@ -6,6 +6,7 @@ public class RequestDto {
     @Getter
     public static class createPaymentRequestDto {
         private String shopName;
+        private Long userId;
     }
 
 }
