@@ -9,7 +9,7 @@ public class PaymentRequestConverter {
     public static PaymentRequest toPaymentRequest(RequestDto.CreatePaymentRequestDto dto) {
         return PaymentRequest.builder()
                 .shopName(dto.getShopName())
-                .userId(dto.getUserId())
+                .memberId(dto.getMemberId())
                 .isSuccess(false)
                 .paymentAmount(10000L)
                 .build();

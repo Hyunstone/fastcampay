@@ -22,8 +22,8 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long userId) {
-        return payRequestRepository.findAllByUserId(userId).stream()
+    public List<ResponseDto.GetPaymentResponseDto> getPaymentRequest(Long memberId) {
+        return payRequestRepository.findAllByMemberId(memberId).stream()
                 .map(PaymentRequestConverter::toGetPaymentResponseDto)
                 .collect(Collectors.toList());
     }

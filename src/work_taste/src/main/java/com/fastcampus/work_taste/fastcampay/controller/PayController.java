@@ -23,8 +23,8 @@ public class PayController {
 
     // 사용자 결제 요청 정보 확인
     @GetMapping("/request")
-    public ResponseEntity<List<ResponseDto.GetPaymentResponseDto>> getPaymentRequest(@PathVariable Long userId) {
-        return ResponseEntity.ok().body(payService.getPaymentRequest(userId));
+    public ResponseEntity<List<ResponseDto.GetPaymentResponseDto>> getPaymentRequest(@PathVariable Long memberId) {
+        return ResponseEntity.ok().body(payService.getPaymentRequest(memberId));
     }
 
     // 사용장 결제 처리
